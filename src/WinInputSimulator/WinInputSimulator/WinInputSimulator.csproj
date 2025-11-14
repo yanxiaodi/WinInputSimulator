@@ -1,9 +1,53 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
+    <!-- Target Framework -->
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    
+    <!-- Platform Specific - Windows only -->
+    <SupportedOSPlatform>windows</SupportedOSPlatform>
+    <RuntimeIdentifiers>win-x64;win-x86;win-arm64</RuntimeIdentifiers>
+
+    <!-- NuGet Package Metadata -->
+    <PackageId>WinInputSimulator</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Xiaodi Yan</Authors>
+    <Company>Xiaodi Yan</Company>
+    <Product>WinInputSimulator</Product>
+    <Description>A lightweight Windows input simulator library for keyboard and mouse automation using Win32 API. Supports Unicode keyboard input, mouse operations (click, move, scroll), key combinations (Ctrl, Alt, Shift), and window management. Perfect for automation, testing, and accessibility applications on Windows.</Description>
+    <Copyright>Copyright (c) 2025 Xiaodi Yan</Copyright>
+    <PackageTags>input-simulator;keyboard;mouse;automation;win32;windows;input-automation;testing;ui-automation;windows-automation</PackageTags>
+    
+    <!-- URLs and Links -->
+    <PackageProjectUrl>https://github.com/yanxiaodi/WinInputSimulator</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/yanxiaodi/WinInputSimulator</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    
+    <!-- Package Build Settings -->
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    
+    <!-- Documentation -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    
+    <!-- Symbols Package -->
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    
+    <!-- Code Analysis -->
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
   </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Include README in package -->
+    <None Include="..\..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
 </Project>
