@@ -14,22 +14,33 @@ This test project contains comprehensive unit tests for the WinInputSimulator li
 
 This project is integrated with GitHub Actions for continuous integration and deployment:
 
+### .NET Version Support
+
+The workspace includes projects targeting:
+- **.NET 8 (LTS)**: Main library and test project
+- **.NET 10 (stable)**: Demo application only
+
+**CI/CD workflows automatically install both .NET 8 and .NET 10 SDKs** to support all projects.
+
 ### Workflows
 
 1. **CI/CD Pipeline** (`.github/workflows/ci-cd.yml`)
    - Runs on push to main/develop branches and releases
+   - Installs .NET 8 (LTS) and .NET 10 (stable) SDKs
    - Builds, tests, creates packages, and publishes to NuGet
    - Includes code quality analysis and security scanning
 
 2. **Pull Request Validation** (`.github/workflows/pr-validation.yml`)
    - Validates all pull requests
+   - Supports both .NET 8 and .NET 10
    - Runs tests, checks code formatting
    - Posts results as PR comments
 
 3. **Scheduled Tests** (`.github/workflows/scheduled-tests.yml`)
    - Runs nightly at 2 AM UTC
-   - Tests on multiple .NET versions
+   - Tests on both .NET 8 and .NET 10
    - Creates issues if tests fail
+   - Compatibility matrix testing
 
 ### Badges
 

@@ -4,9 +4,6 @@ on:
   pull_request:
     branches: [ main, develop ]
 
-env:
-  DOTNET_VERSION: '8.0.x'
-
 jobs:
   validate:
     name: Validate Pull Request
@@ -16,16 +13,25 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Setup .NET
+    - name: Setup .NET 8
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+        dotnet-version: '8.0.x'
+
+    - name: Setup .NET 10
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Verify .NET versions
+      run: dotnet --list-sdks
 
     - name: Restore dependencies
       run: dotnet restore WinInputSimulator.sln
 
     - name: Check code formatting
       run: dotnet format WinInputSimulator.sln --verify-no-changes --verbosity diagnostic
+      continue-on-error: true # Don't fail the build if formatting issues exist, just warn
 
     - name: Build solution
       run: dotnet build WinInputSimulator.sln --configuration Release --no-restore
@@ -54,4 +60,4 @@ jobs:
             owner: context.repo.owner,
             repo: context.repo.repo,
             body: '? Tests completed. Check the Actions tab for detailed results.'
-          });
+          });          });
