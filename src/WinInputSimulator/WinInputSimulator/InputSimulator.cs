@@ -148,6 +148,9 @@ public class InputSimulator
     /// </summary>
     public IntPtr FindWindowByTitle(string titleContains)
     {
+        if (string.IsNullOrEmpty(titleContains))
+            return IntPtr.Zero;
+            
         IntPtr hWnd = IntPtr.Zero;
         foreach (System.Diagnostics.Process proc in System.Diagnostics.Process.GetProcesses())
         {
