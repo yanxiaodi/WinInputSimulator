@@ -5,27 +5,27 @@
 
 A lightweight and easy-to-use .NET library for simulating keyboard and mouse input on Windows using the Win32 API. Perfect for automation, testing, and accessibility applications.
 
-## ? Features
+## Features
 
-- ?? **Keyboard Simulation**
+- **Keyboard Simulation**
   - Unicode character input support
   - Virtual key press simulation
   - Key combinations (Ctrl, Alt, Shift)
   - Special keys (Enter, Tab, Backspace, Delete, Arrow keys, Function keys)
   
-- ??? **Mouse Operations**
+- **Mouse Operations**
   - Move cursor to absolute or relative positions
   - Left, right, and middle button clicks
   - Double-click support
   - Mouse wheel scrolling
   - Click at specific coordinates
 
-- ?? **Window Management**
+- **Window Management**
   - Find windows by title or process name
   - Activate and bring windows to foreground
   - Get active window information
 
-## ?? Installation
+## Installation
 
 To install the `WinInputSimulator` library, you have a few different options depending on your development setup and preferences.
 
@@ -57,7 +57,7 @@ For projects using PackageReference in their `.csproj` file, you can add the fol
 <PackageReference Include="WinInputSimulator" Version="1.0.0" />
 ```
 
-## ?? Quick Start
+## Quick Start
 
 Getting started with `WinInputSimulator` is easy! Just follow these simple steps to simulate keyboard and mouse input in your .NET application.
 
@@ -183,7 +183,7 @@ simulator.InputCombination(
 );
 ```
 
-## ?? Virtual Key Codes
+## Virtual Key Codes
 
 The library provides a convenient `VirtualKey` static class with constants for all common keys. Here are some examples:
 
@@ -222,15 +222,15 @@ InputSimulator.VirtualKey.PageDown
 InputSimulator.VirtualKey.Insert
 ```
 
-## ?? Requirements
+## Requirements
 
 Before you start using `WinInputSimulator`, make sure your system meets the following requirements:
 
 - **Operating System:** Windows 10 or later
-- **.NET Version:** .NET 8.0, .NET 9.0, or .NET 10.0
+- **.NET Version:** .NET 8.0 or later
 - **Platform:** Windows x64, x86, or ARM64
 
-## ?? Important Notes
+## Important Notes
 
 1. **Administrator Privileges:** Some applications may require administrator privileges to receive simulated input, especially if they are running with elevated permissions.
 
@@ -242,7 +242,7 @@ Before you start using `WinInputSimulator`, make sure your system meets the foll
 
 5. **Thread Safety:** The library is not thread-safe. Create separate instances for multi-threaded scenarios or use proper synchronization.
 
-## ?? API Reference
+## API Reference
 
 The following tables summarize the available methods in the `WinInputSimulator` library for keyboard, mouse, and window management.
 
@@ -292,19 +292,19 @@ The following tables summarize the available methods in the `WinInputSimulator` 
 | `ActivateWindowByProcessName(string processName)` | Find and activate window |
 | `GetActiveWindow()` | Get currently active window handle |
 
-## ?? Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## ?? License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## ?? Acknowledgments
+## Acknowledgments
 
-Built with ?? using the Windows Win32 API.
+Built with :heart: using the Windows Win32 API.
 
-## ?? Support
+## Support
 
 - **Issues:** [GitHub Issues](https://github.com/yanxiaodi/WinInputSimulator/issues)
 - **Discussions:** [GitHub Discussions](https://github.com/yanxiaodi/WinInputSimulator/discussions)
