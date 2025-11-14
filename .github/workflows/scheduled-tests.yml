@@ -1,0 +1,100 @@
+name: Scheduled Tests
+
+on:
+  schedule:
+    # Run tests every day at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+env:
+  DOTNET_VERSION: '8.0.x'
+
+jobs:
+  nightly-tests:
+    name: Nightly Test Run
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Restore dependencies
+      run: dotnet restore WinInputSimulator.sln
+
+    - name: Build solution
+      run: dotnet build WinInputSimulator.sln --configuration Release --no-restore
+
+    - name: Run all tests with detailed logging
+      run: |
+        dotnet test WinInputSimulator.sln `
+          --configuration Release `
+          --no-build `
+          --verbosity diagnostic `
+          --logger "console;verbosity=detailed" `
+          --logger "trx;LogFileName=test-results.trx" `
+          --collect:"XPlat Code Coverage" `
+          --results-directory ./TestResults
+
+    - name: Upload detailed test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: nightly-test-results-${{ github.run_number }}
+        path: ./TestResults
+        retention-days: 30
+
+    - name: Notify on failure
+      if: failure()
+      uses: actions/github-script@v7
+      with:
+        script: |
+          github.rest.issues.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: `Nightly tests failed - ${new Date().toISOString().split('T')[0]}`,
+            body: `The nightly test run has failed. Please check the [workflow run](${context.payload.repository.html_url}/actions/runs/${context.runId}) for details.`,
+            labels: ['bug', 'ci-failure']
+          })
+
+  compatibility-tests:
+    name: Test on Multiple .NET Versions
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        dotnet-version: ['8.0.x', '9.0.x'] # Test on different .NET versions if needed
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET ${{ matrix.dotnet-version }}
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ matrix.dotnet-version }}
+
+    - name: Restore dependencies
+      run: dotnet restore WinInputSimulator.sln
+
+    - name: Build solution
+      run: dotnet build WinInputSimulator.sln --configuration Release --no-restore
+
+    - name: Run tests on .NET ${{ matrix.dotnet-version }}
+      run: |
+        dotnet test WinInputSimulator.sln `
+          --configuration Release `
+          --no-build `
+          --verbosity normal `
+          --logger "trx;LogFileName=test-results-${{ matrix.dotnet-version }}.trx" `
+          --results-directory ./TestResults
+
+    - name: Upload test results for .NET ${{ matrix.dotnet-version }}
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-results-dotnet-${{ matrix.dotnet-version }}
+        path: ./TestResults

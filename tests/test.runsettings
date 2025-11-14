@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <DataCollector friendlyName="Code Coverage" uri="datacollector://Microsoft/CodeCoverage/2.0" assemblyQualifiedName="Microsoft.VisualStudio.Coverage.DynamicCoverageDataCollector, Microsoft.VisualStudio.TraceCollector, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+        <Configuration>
+          <CodeCoverage>
+            <!-- Match assembly file paths: -->
+            <ModulePaths>
+              <Include>
+                <ModulePath>.*WinInputSimulator\.dll$</ModulePath>
+              </Include>
+              <Exclude>
+                <ModulePath>.*Tests\.dll$</ModulePath>
+                <ModulePath>.*TestAdapter\.dll$</ModulePath>
+                <ModulePath>.*Demo\.dll$</ModulePath>
+              </Exclude>
+            </ModulePaths>
+
+            <!-- Match fully qualified names of functions: -->
+            <Functions>
+              <Exclude>
+                <Function>^System\..*</Function>
+                <Function>^Microsoft\..*</Function>
+              </Exclude>
+            </Functions>
+
+            <!-- Match attributes on any code element: -->
+            <Attributes>
+              <Exclude>
+                <Attribute>^System\.Diagnostics\.DebuggerHiddenAttribute$</Attribute>
+                <Attribute>^System\.Diagnostics\.DebuggerNonUserCodeAttribute$</Attribute>
+                <Attribute>^System\.CodeDom\.Compiler\.GeneratedCodeAttribute$</Attribute>
+                <Attribute>^System\.Diagnostics\.CodeAnalysis\.ExcludeFromCodeCoverageAttribute$</Attribute>
+              </Exclude>
+            </Attributes>
+
+            <!-- Match the path of the source files in which each method is defined: -->
+            <Sources>
+              <Exclude>
+                <Source>.*\\test\\.*</Source>
+                <Source>.*\\tests\\.*</Source>
+                <Source>.*\\demo\\.*</Source>
+              </Exclude>
+            </Sources>
+          </CodeCoverage>
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+
+  <!-- Test runner settings -->
+  <RunConfiguration>
+    <MaxCpuCount>0</MaxCpuCount>
+    <ResultsDirectory>.\TestResults</ResultsDirectory>
+    <TestSessionTimeout>300000</TestSessionTimeout> <!-- 5 minutes -->
+  </RunConfiguration>
+
+  <!-- xUnit configuration -->
+  <xUnit>
+    <DiagnosticMessages>false</DiagnosticMessages>
+    <AppDomain>ifAvailable</AppDomain>
+    <ShadowCopy>true</ShadowCopy>
+  </xUnit>
+
+  <!-- Test platform settings -->
+  <TestPlatform>
+    <TestAdaptersPaths>%USERPROFILE%\.nuget\packages</TestAdaptersPaths>
+  </TestPlatform>
+
+  <!-- Logger configuration -->
+  <LoggerRunSettings>
+    <Loggers>
+      <Logger friendlyName="console" enabled="True">
+        <Configuration>
+          <Verbosity>normal</Verbosity>
+        </Configuration>
+      </Logger>
+      <Logger friendlyName="trx" enabled="True" />
+      <Logger friendlyName="html" enabled="False" />
+    </Loggers>
+  </LoggerRunSettings>
+</RunSettings>

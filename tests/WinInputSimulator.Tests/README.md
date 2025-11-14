@@ -10,6 +10,37 @@ This test project contains comprehensive unit tests for the WinInputSimulator li
 - **VirtualKey Tests**: Validation of all virtual key constants
 - **Window Management Tests**: Window finding and activation functionality
 
+## CI/CD Integration
+
+This project is integrated with GitHub Actions for continuous integration and deployment:
+
+### Workflows
+
+1. **CI/CD Pipeline** (`.github/workflows/ci-cd.yml`)
+   - Runs on push to main/develop branches and releases
+   - Builds, tests, creates packages, and publishes to NuGet
+   - Includes code quality analysis and security scanning
+
+2. **Pull Request Validation** (`.github/workflows/pr-validation.yml`)
+   - Validates all pull requests
+   - Runs tests, checks code formatting
+   - Posts results as PR comments
+
+3. **Scheduled Tests** (`.github/workflows/scheduled-tests.yml`)
+   - Runs nightly at 2 AM UTC
+   - Tests on multiple .NET versions
+   - Creates issues if tests fail
+
+### Badges
+
+Add these to your main README.md:
+
+```markdown
+[![CI/CD](https://github.com/yanxiaodi/WinInputSimulator/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/yanxiaodi/WinInputSimulator/actions/workflows/ci-cd.yml)
+[![Tests](https://github.com/yanxiaodi/WinInputSimulator/actions/workflows/pr-validation.yml/badge.svg)](https://github.com/yanxiaodi/WinInputSimulator/actions/workflows/pr-validation.yml)
+[![codecov](https://codecov.io/gh/yanxiaodi/WinInputSimulator/branch/main/graph/badge.svg)](https://codecov.io/gh/yanxiaodi/WinInputSimulator)
+```
+
 ## Running the Tests
 
 ### Using .NET CLI
@@ -22,6 +53,11 @@ dotnet test
 Run tests with detailed output:
 ```bash
 dotnet test --logger "console;verbosity=detailed"
+```
+
+Run with code coverage:
+```bash
+dotnet test --collect:"XPlat Code Coverage" --settings tests/test.runsettings
 ```
 
 Run specific test class:
@@ -92,6 +128,11 @@ When running tests in CI/CD pipelines:
 - Tests may fail in environments without proper Windows UI support
 - Consider using specialized Windows runners for automated testing
 
+**GitHub Actions Configuration:**
+- Uses `windows-latest` runners for UI access
+- Includes test result uploads and coverage reporting
+- Configured for both PR validation and release pipelines
+
 ## Test Coverage
 
 The test suite includes:
@@ -99,6 +140,15 @@ The test suite includes:
 - Input validation tests
 - Error handling tests
 - Integration tests with Win32 APIs
+- Code coverage reporting via Codecov
+
+## Test Configuration
+
+The project uses `tests/test.runsettings` for:
+- Code coverage configuration
+- Test timeout settings
+- xUnit runner configuration
+- Logger settings
 
 ## Contributing
 
@@ -106,6 +156,7 @@ When adding new features to WinInputSimulator:
 1. Add corresponding unit tests
 2. Ensure all existing tests pass
 3. Update this README if adding new test categories
+4. All tests will run automatically in CI/CD pipelines
 
 ## Dependencies
 
