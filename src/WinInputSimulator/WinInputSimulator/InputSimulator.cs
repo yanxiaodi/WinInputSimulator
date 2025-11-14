@@ -265,7 +265,7 @@ public class InputSimulator
                         ki = new KEYBDINPUT
                         {
                             wVk = 0,
-                            wScan = character,
+                            wScan = (ushort)character,
                             dwFlags = KEYEVENTF_UNICODE,
                             time = 0,
                             dwExtraInfo = IntPtr.Zero
@@ -282,7 +282,7 @@ public class InputSimulator
                         ki = new KEYBDINPUT
                         {
                             wVk = 0,
-                            wScan = character,
+                            wScan = (ushort)character,
                             dwFlags = KEYEVENTF_UNICODE | KEYEVENTF_KEYUP,
                             time = 0,
                             dwExtraInfo = IntPtr.Zero
@@ -296,13 +296,90 @@ public class InputSimulator
     }
 
     /// <summary>
-    /// Input a text string
+    /// Input a text string with full Unicode support including surrogate pairs
     /// </summary>
     public void InputText(string text, int delayMs = 50)
     {
-        foreach (char c in text)
+        if (string.IsNullOrEmpty(text))
+            return;
+
+        // Use StringInfo to properly handle Unicode characters including surrogate pairs
+        var textElements = System.Globalization.StringInfo.GetTextElementEnumerator(text);
+        
+        while (textElements.MoveNext())
         {
-            InputCharacter(c);
+            string element = textElements.GetTextElement();
+            
+            // Handle special control characters
+            if (element.Length == 1)
+            {
+                char c = element[0];
+                switch (c)
+                {
+                    case '\r':
+                    case '\n':
+                        PressEnter();
+                        Thread.Sleep(delayMs);
+                        continue;
+                    case '\t':
+                        PressTab();
+                        Thread.Sleep(delayMs);
+                        continue;
+                    case '\b':
+                        PressBackspace();
+                        Thread.Sleep(delayMs);
+                        continue;
+                }
+            }
+
+            // Send each character (including surrogate pairs)
+            foreach (char c in element)
+            {
+                INPUT[] inputs = new INPUT[2];
+
+                // Key down
+                inputs[0] = new INPUT
+                {
+                    type = INPUT_KEYBOARD,
+                    U = new InputUnion
+                    {
+                        ki = new KEYBDINPUT
+                        {
+                            wVk = 0,
+                            wScan = (ushort)c,
+                            dwFlags = KEYEVENTF_UNICODE,
+                            time = 0,
+                            dwExtraInfo = IntPtr.Zero
+                        }
+                    }
+                };
+
+                // Key up
+                inputs[1] = new INPUT
+                {
+                    type = INPUT_KEYBOARD,
+                    U = new InputUnion
+                    {
+                        ki = new KEYBDINPUT
+                        {
+                            wVk = 0,
+                            wScan = (ushort)c,
+                            dwFlags = KEYEVENTF_UNICODE | KEYEVENTF_KEYUP,
+                            time = 0,
+                            dwExtraInfo = IntPtr.Zero
+                        }
+                    }
+                };
+
+                SendInput(2, inputs, Marshal.SizeOf(typeof(INPUT)));
+                
+                // Small delay between surrogate pair code units
+                if (element.Length > 1)
+                {
+                    Thread.Sleep(5);
+                }
+            }
+            
             Thread.Sleep(delayMs);
         }
     }
