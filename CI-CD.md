@@ -96,6 +96,17 @@ Add to your README:
 
 ## Troubleshooting
 
+### Tests Hanging or Timing Out in CI
+The tests perform actual Win32 API calls which can sometimes hang in CI environments. The workflows include:
+- **Job timeout:** 10 minutes
+- **Test step timeout:** 5 minutes  
+- **Test session timeout:** 3 minutes
+
+If tests consistently timeout:
+1. Check GitHub Actions logs for the specific hanging test
+2. Tests should complete in < 5 seconds normally
+3. Ensure Windows runner has proper UI session access
+
 ### Tests Failing Due to DPI Scaling
 Mouse position tests include tolerance for DPI scaling. If issues persist, run tests at 100% display scaling.
 
@@ -114,6 +125,12 @@ dotnet --list-sdks
 1. Verify `NUGET_API_KEY` secret is set
 2. Check API key has "Push" permission
 3. Ensure package ID doesn't conflict
+
+### Tests Work Locally But Fail in CI
+This is expected behavior for Win32 UI automation tests:
+- Local: Full UI session with keyboard/mouse access
+- CI: Limited UI session, may have timing differences
+- The tests include appropriate delays and tolerances for CI environments
 
 ## Project Structure
 

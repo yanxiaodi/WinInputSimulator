@@ -15,6 +15,7 @@ jobs:
   build-and-test:
     name: Build and Test
     runs-on: windows-latest # Windows required for Win32 API tests
+    timeout-minutes: 10 # Add timeout to prevent hanging
     
     steps:
     - name: Checkout code
@@ -50,14 +51,17 @@ jobs:
       run: dotnet build ${{ env.SOLUTION_FILE }} --configuration Release --no-restore
 
     - name: Run tests
+      timeout-minutes: 5
       run: |
         dotnet test ${{ env.SOLUTION_FILE }} `
           --configuration Release `
           --no-build `
           --verbosity normal `
           --logger trx `
+          --logger "console;verbosity=detailed" `
           --collect:"XPlat Code Coverage" `
-          --results-directory ./TestResults
+          --results-directory ./TestResults `
+          -- RunConfiguration.TestSessionTimeout=180000
 
     - name: Upload test results
       uses: actions/upload-artifact@v4

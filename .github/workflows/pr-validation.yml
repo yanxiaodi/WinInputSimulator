@@ -8,6 +8,7 @@ jobs:
   validate:
     name: Validate Pull Request
     runs-on: windows-latest # Windows required for Win32 API tests
+    timeout-minutes: 10 # Add timeout to prevent hanging
     
     steps:
     - name: Checkout code
@@ -37,13 +38,15 @@ jobs:
       run: dotnet build WinInputSimulator.sln --configuration Release --no-restore
 
     - name: Run tests
+      timeout-minutes: 5
       run: |
         dotnet test WinInputSimulator.sln `
           --configuration Release `
           --no-build `
           --verbosity normal `
           --logger "console;verbosity=detailed" `
-          --collect:"XPlat Code Coverage"
+          --collect:"XPlat Code Coverage" `
+          -- RunConfiguration.TestSessionTimeout=180000
 
     - name: Comment test results
       uses: actions/github-script@v7
@@ -60,4 +63,4 @@ jobs:
             owner: context.repo.owner,
             repo: context.repo.repo,
             body: '? Tests completed. Check the Actions tab for detailed results.'
-          });          });
+          });
