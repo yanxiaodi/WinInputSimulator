@@ -28,19 +28,13 @@ The workspace includes projects targeting:
    - Runs on push to main/develop branches and releases
    - Installs .NET 8 (LTS) and .NET 10 (stable) SDKs
    - Builds, tests, creates packages, and publishes to NuGet
-   - Includes code quality analysis and security scanning
+   - Includes security scanning
 
 2. **Pull Request Validation** (`.github/workflows/pr-validation.yml`)
    - Validates all pull requests
    - Supports both .NET 8 and .NET 10
    - Runs tests, checks code formatting
    - Posts results as PR comments
-
-3. **Scheduled Tests** (`.github/workflows/scheduled-tests.yml`)
-   - Runs nightly at 2 AM UTC
-   - Tests on both .NET 8 and .NET 10
-   - Creates issues if tests fail
-   - Compatibility matrix testing
 
 ### Badges
 

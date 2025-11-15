@@ -24,14 +24,6 @@ This project uses GitHub Actions for continuous integration and deployment with 
 - Test execution
 - Automated comments
 
-### 3. Scheduled Tests (`scheduled-tests.yml`)
-**Triggers:** Daily at 2 AM UTC, Manual
-
-**Features:**
-- Comprehensive testing
-- Multi-version compatibility
-- Automated issue creation on failure
-
 ## Local Development
 
 ### Prerequisites
@@ -150,8 +142,6 @@ Feature Branch ¡ú Pull Request ¡ú PR Validation (pr-validation.yml)
                 Main/Develop ¡ú Full CI/CD (ci-cd.yml)
                        ¡ý
                    Release ¡ú Build + Publish (ci-cd.yml)
-               
-         Nightly ¡ú Comprehensive Tests (scheduled-tests.yml)
 ```
 
 ## Additional Resources
