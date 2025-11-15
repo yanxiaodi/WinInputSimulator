@@ -8,6 +8,11 @@ on:
   release:
     types: [ published ]
 
+permissions:
+  contents: read
+  security-events: write
+  actions: read
+
 env:
   SOLUTION_FILE: 'WinInputSimulator.sln'
 
