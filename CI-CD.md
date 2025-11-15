@@ -11,7 +11,6 @@ This project uses GitHub Actions for continuous integration and deployment with 
 
 **Features:**
 - Builds and tests on .NET 8 and .NET 10
-- Code quality analysis (SonarCloud)
 - Security scanning (CodeQL)
 - NuGet package creation
 - Automatic publishing on releases
@@ -67,8 +66,8 @@ Configure these in: `Settings ¡ú Secrets and variables ¡ú Actions`
 | Secret | Required For | How to Get |
 |--------|-------------|------------|
 | `NUGET_API_KEY` | Publishing releases | https://www.nuget.org/account/apikeys |
-| `CODECOV_TOKEN` | Coverage reports (optional) | https://codecov.io |
-| `SONAR_TOKEN` | Code quality (optional) | https://sonarcloud.io |
+
+**Note:** The `NUGET_API_KEY` is only required when you want to publish releases to NuGet.org.
 
 ## Publishing Releases
 
@@ -88,10 +87,11 @@ Configure these in: `Settings ¡ú Secrets and variables ¡ú Actions`
 
 ## Status Badges
 
-Add to your README:
+Add these to your README.md:
 ```markdown
 [![CI/CD](https://github.com/yanxiaodi/WinInputSimulator/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/yanxiaodi/WinInputSimulator/actions/workflows/ci-cd.yml)
 [![Tests](https://github.com/yanxiaodi/WinInputSimulator/actions/workflows/pr-validation.yml/badge.svg)](https://github.com/yanxiaodi/WinInputSimulator/actions/workflows/pr-validation.yml)
+[![NuGet](https://img.shields.io/nuget/v/WinInputSimulator.svg)](https://www.nuget.org/packages/WinInputSimulator/)
 ```
 
 ## Troubleshooting
@@ -159,4 +159,4 @@ Feature Branch ¡ú Pull Request ¡ú PR Validation (pr-validation.yml)
 - [GitHub Actions Docs](https://docs.github.com/actions)
 - [.NET CLI Reference](https://docs.microsoft.com/dotnet/core/tools/)
 - [xUnit Documentation](https://xunit.net/)
-- [Test Documentation](tests/WinInputSimulator.Tests/README.md)
+- [Test Documentation](tests/WinInputSimulator.Tests/README.md)- [Test Documentation](tests/WinInputSimulator.Tests/README.md)

@@ -49,7 +49,7 @@ Add these to your main README.md:
 ```markdown
 [![CI/CD](https://github.com/yanxiaodi/WinInputSimulator/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/yanxiaodi/WinInputSimulator/actions/workflows/ci-cd.yml)
 [![Tests](https://github.com/yanxiaodi/WinInputSimulator/actions/workflows/pr-validation.yml/badge.svg)](https://github.com/yanxiaodi/WinInputSimulator/actions/workflows/pr-validation.yml)
-[![codecov](https://codecov.io/gh/yanxiaodi/WinInputSimulator/branch/main/graph/badge.svg)](https://codecov.io/gh/yanxiaodi/WinInputSimulator)
+[![NuGet](https://img.shields.io/nuget/v/WinInputSimulator.svg)](https://www.nuget.org/packages/WinInputSimulator/)
 ```
 
 ## Running the Tests
@@ -147,11 +147,12 @@ When running tests in CI/CD pipelines:
 ## Test Coverage
 
 The test suite includes:
-- **83 unit tests** covering all public methods
+- **82 unit tests** covering all public methods
 - Input validation tests
 - Error handling tests
 - Integration tests with Win32 APIs
-- Code coverage reporting via Codecov
+
+Test results are uploaded as artifacts in GitHub Actions for review.
 
 ## Test Configuration
 
