@@ -49,7 +49,7 @@ jobs:
           -- RunConfiguration.TestSessionTimeout=180000
 
     - name: Comment test results
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       if: always()
       with:
         script: |
