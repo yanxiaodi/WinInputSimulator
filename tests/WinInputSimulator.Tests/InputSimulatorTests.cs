@@ -51,9 +51,9 @@ public class InputSimulatorTests
 
         // Assert - Allow for DPI scaling differences (up to 20% variance)
         var tolerance = 100; // 20% of 500
-        Assert.True(Math.Abs(actualX - targetX) <= tolerance, 
+        Assert.True(Math.Abs(actualX - targetX) <= tolerance,
             $"X position should be close to {targetX}, but was {actualX}. This may be due to DPI scaling.");
-        Assert.True(Math.Abs(actualY - targetY) <= tolerance, 
+        Assert.True(Math.Abs(actualY - targetY) <= tolerance,
             $"Y position should be close to {targetY}, but was {actualY}. This may be due to DPI scaling.");
     }
 
@@ -297,7 +297,7 @@ public class InputSimulatorTests
         // Act & Assert
         var exception = Record.Exception(() => _simulator.LeftMouseDown());
         Assert.Null(exception);
-        
+
         // Cleanup - release the button
         _simulator.LeftMouseUp();
     }
@@ -308,7 +308,7 @@ public class InputSimulatorTests
         // Act & Assert
         var exception = Record.Exception(() => _simulator.RightMouseDown());
         Assert.Null(exception);
-        
+
         // Cleanup - release the button
         _simulator.RightMouseUp();
     }
@@ -319,7 +319,7 @@ public class InputSimulatorTests
         // Act & Assert
         var exception = Record.Exception(() => _simulator.MiddleMouseDown());
         Assert.Null(exception);
-        
+
         // Cleanup - release the button
         _simulator.MiddleMouseUp();
     }
@@ -360,9 +360,9 @@ public class InputSimulatorTests
 
         // Assert - Allow for DPI scaling differences (up to 20% variance)
         var tolerance = 120; // 20% of 600
-        Assert.True(Math.Abs(actualX - targetX) <= tolerance, 
+        Assert.True(Math.Abs(actualX - targetX) <= tolerance,
             $"X position should be close to {targetX}, but was {actualX}. This may be due to DPI scaling.");
-        Assert.True(Math.Abs(actualY - targetY) <= tolerance, 
+        Assert.True(Math.Abs(actualY - targetY) <= tolerance,
             $"Y position should be close to {targetY}, but was {actualY}. This may be due to DPI scaling.");
     }
 }

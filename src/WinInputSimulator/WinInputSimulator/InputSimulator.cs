@@ -150,7 +150,7 @@ public class InputSimulator
     {
         if (string.IsNullOrEmpty(titleContains))
             return IntPtr.Zero;
-            
+
         IntPtr hWnd = IntPtr.Zero;
         foreach (System.Diagnostics.Process proc in System.Diagnostics.Process.GetProcesses())
         {
@@ -308,11 +308,11 @@ public class InputSimulator
 
         // Use StringInfo to properly handle Unicode characters including surrogate pairs
         var textElements = System.Globalization.StringInfo.GetTextElementEnumerator(text);
-        
+
         while (textElements.MoveNext())
         {
             string element = textElements.GetTextElement();
-            
+
             // Handle special control characters
             if (element.Length == 1)
             {
@@ -375,14 +375,14 @@ public class InputSimulator
                 };
 
                 SendInput(2, inputs, Marshal.SizeOf(typeof(INPUT)));
-                
+
                 // Small delay between surrogate pair code units
                 if (element.Length > 1)
                 {
                     Thread.Sleep(5);
                 }
             }
-            
+
             Thread.Sleep(delayMs);
         }
     }
@@ -606,83 +606,152 @@ public class InputSimulator
 
     #region Virtual Key Code Constants (for convenience)
 
+    /// <summary>
+    /// Virtual key code constants for use with keyboard simulation methods
+    /// </summary>
     public static class VirtualKey
     {
+        /// <summary>Shift key virtual key code</summary>
         public const byte Shift = VK_SHIFT;
+        /// <summary>Control (Ctrl) key virtual key code</summary>
         public const byte Control = VK_CONTROL;
+        /// <summary>Alt key virtual key code</summary>
         public const byte Alt = VK_MENU;
+        /// <summary>Enter key virtual key code</summary>
         public const byte Enter = VK_RETURN;
+        /// <summary>Tab key virtual key code</summary>
         public const byte Tab = VK_TAB;
+        /// <summary>Escape (Esc) key virtual key code</summary>
         public const byte Escape = VK_ESCAPE;
+        /// <summary>Space bar virtual key code</summary>
         public const byte Space = VK_SPACE;
+        /// <summary>Backspace key virtual key code</summary>
         public const byte Backspace = VK_BACK;
+        /// <summary>Delete key virtual key code</summary>
         public const byte Delete = VK_DELETE;
 
         // Letter keys
+        /// <summary>Letter A virtual key code</summary>
         public const byte A = 0x41;
+        /// <summary>Letter B virtual key code</summary>
         public const byte B = 0x42;
+        /// <summary>Letter C virtual key code</summary>
         public const byte C = 0x43;
+        /// <summary>Letter D virtual key code</summary>
         public const byte D = 0x44;
+        /// <summary>Letter E virtual key code</summary>
         public const byte E = 0x45;
+        /// <summary>Letter F virtual key code</summary>
         public const byte F = 0x46;
+        /// <summary>Letter G virtual key code</summary>
         public const byte G = 0x47;
+        /// <summary>Letter H virtual key code</summary>
         public const byte H = 0x48;
+        /// <summary>Letter I virtual key code</summary>
         public const byte I = 0x49;
+        /// <summary>Letter J virtual key code</summary>
         public const byte J = 0x4A;
+        /// <summary>Letter K virtual key code</summary>
         public const byte K = 0x4B;
+        /// <summary>Letter L virtual key code</summary>
         public const byte L = 0x4C;
+        /// <summary>Letter M virtual key code</summary>
         public const byte M = 0x4D;
+        /// <summary>Letter N virtual key code</summary>
         public const byte N = 0x4E;
+        /// <summary>Letter O virtual key code</summary>
         public const byte O = 0x4F;
+        /// <summary>Letter P virtual key code</summary>
         public const byte P = 0x50;
+        /// <summary>Letter Q virtual key code</summary>
         public const byte Q = 0x51;
+        /// <summary>Letter R virtual key code</summary>
         public const byte R = 0x52;
+        /// <summary>Letter S virtual key code</summary>
         public const byte S = 0x53;
+        /// <summary>Letter T virtual key code</summary>
         public const byte T = 0x54;
+        /// <summary>Letter U virtual key code</summary>
         public const byte U = 0x55;
+        /// <summary>Letter V virtual key code</summary>
         public const byte V = 0x56;
+        /// <summary>Letter W virtual key code</summary>
         public const byte W = 0x57;
+        /// <summary>Letter X virtual key code</summary>
         public const byte X = 0x58;
+        /// <summary>Letter Y virtual key code</summary>
         public const byte Y = 0x59;
+        /// <summary>Letter Z virtual key code</summary>
         public const byte Z = 0x5A;
 
         // Number keys
+        /// <summary>Number 0 key virtual key code</summary>
         public const byte D0 = 0x30;
+        /// <summary>Number 1 key virtual key code</summary>
         public const byte D1 = 0x31;
+        /// <summary>Number 2 key virtual key code</summary>
         public const byte D2 = 0x32;
+        /// <summary>Number 3 key virtual key code</summary>
         public const byte D3 = 0x33;
+        /// <summary>Number 4 key virtual key code</summary>
         public const byte D4 = 0x34;
+        /// <summary>Number 5 key virtual key code</summary>
         public const byte D5 = 0x35;
+        /// <summary>Number 6 key virtual key code</summary>
         public const byte D6 = 0x36;
+        /// <summary>Number 7 key virtual key code</summary>
         public const byte D7 = 0x37;
+        /// <summary>Number 8 key virtual key code</summary>
         public const byte D8 = 0x38;
+        /// <summary>Number 9 key virtual key code</summary>
         public const byte D9 = 0x39;
 
         // Function keys
+        /// <summary>F1 function key virtual key code</summary>
         public const byte F1 = 0x70;
+        /// <summary>F2 function key virtual key code</summary>
         public const byte F2 = 0x71;
+        /// <summary>F3 function key virtual key code</summary>
         public const byte F3 = 0x72;
+        /// <summary>F4 function key virtual key code</summary>
         public const byte F4 = 0x73;
+        /// <summary>F5 function key virtual key code</summary>
         public const byte F5 = 0x74;
+        /// <summary>F6 function key virtual key code</summary>
         public const byte F6 = 0x75;
+        /// <summary>F7 function key virtual key code</summary>
         public const byte F7 = 0x76;
+        /// <summary>F8 function key virtual key code</summary>
         public const byte F8 = 0x77;
+        /// <summary>F9 function key virtual key code</summary>
         public const byte F9 = 0x78;
+        /// <summary>F10 function key virtual key code</summary>
         public const byte F10 = 0x79;
+        /// <summary>F11 function key virtual key code</summary>
         public const byte F11 = 0x7A;
+        /// <summary>F12 function key virtual key code</summary>
         public const byte F12 = 0x7B;
 
         // Arrow keys
+        /// <summary>Left arrow key virtual key code</summary>
         public const byte Left = 0x25;
+        /// <summary>Up arrow key virtual key code</summary>
         public const byte Up = 0x26;
+        /// <summary>Right arrow key virtual key code</summary>
         public const byte Right = 0x27;
+        /// <summary>Down arrow key virtual key code</summary>
         public const byte Down = 0x28;
 
         // Other common keys
+        /// <summary>Home key virtual key code</summary>
         public const byte Home = 0x24;
+        /// <summary>End key virtual key code</summary>
         public const byte End = 0x23;
+        /// <summary>Page Up key virtual key code</summary>
         public const byte PageUp = 0x21;
+        /// <summary>Page Down key virtual key code</summary>
         public const byte PageDown = 0x22;
+        /// <summary>Insert key virtual key code</summary>
         public const byte Insert = 0x2D;
     }
 
